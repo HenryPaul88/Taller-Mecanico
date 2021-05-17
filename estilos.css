@@ -1,0 +1,27 @@
+.obligatorio{
+    display: none;
+    color: red;
+	font-family: "Verdana";
+	font-size: 90%;
+	padding-bottom: 3%;
+}
+#contenedor1{
+	float: left;
+	width: 50%;
+	text-align: center;
+}
+#contenedor2{
+	float: right;
+	width: 50%;
+}
+#tabla{
+ width: 80%;
+ margin-top: 3%;
+ margin-bottom: 2%;
+}
+#crearFila{
+	margin-top: 3%;
+}
+#factura{
+	margin-bottom: 2%;
+}

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   
+    <link rel="stylesheet" href="estilos.css">
+    <script type="text/javascript" src="funciones.js"></script>
+    <script type="text/javascript" src="validar.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div id="contenedor1">
+            <h1>Talleres Vives</h1>
+            <img src="taller.jpg">
+        </div>
+        <div id="contenedor2">
+            <form>
+
+
+                <h1>Datos del Cliente</h1>
+
+                <div class="col-sm-8">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Numero Factura: (*)</span>
+                        </div>
+                        <input type="number" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default" id="factura" style="border:solid blue"
+                            onblur="validarNUmeroDigitosInside(this,1,4,facturaError)">
+                    </div>
+                    <label class="obligatorio" id="facturaError" for="factura">
+                        Introducir un numero de factura max 4 digitos</label>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Fecha: (*)</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Default" placeholder="yyyy/mm/dd"
+                            aria-describedby="inputGroup-sizing-default" id="fecha" style="border:solid blue"
+                            onblur="validarFechaInside(this,fechaError)">
+                    </div>
+                    <label class="obligatorio" id="fechaError" for="fecha">
+                        Introducir una fecha, posterior a la fecha actual </label>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Nombre cliente: (*)</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default" id="cliente" style="border:solid blue"
+                            onblur="validarStringInside(this,2,100,clienteError)">
+                    </div>
+                    <label class="obligatorio" id="clienteError" for="cliente">
+                        Introducir nombre entre 2 a 100 caracteres </label>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Direccion: (*)</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default" id="direccion" style="border:solid blue"
+                            onblur="validarStringInside(this,2,100,direccionError);calcularIva()">
+                    </div>
+                    <label class="obligatorio" id="direccionError" for="direccion">
+                        Introducir direccion entre 2 a 100 caracteres </label>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Codigo Postal:
+                                        (*)</span>
+                                </div>
+                                <input type="number" class="form-control" aria-label="Default" placeholder="00000"
+                                    aria-describedby="inputGroup-sizing-default" id="cp" style="border:solid blue"
+                                    onblur="validarNUmeroDigitosInside(this,1,5,cpError);validarProvincia()">
+                            </div>
+                            <label class="obligatorio" id="cpError" for="cp">
+                                Introducir CP de 5 digitos </label>
+                        </div>
+                        <div class="col">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Provincia: (*)</span>
+                                </div>
+                                <input type="text" class="form-control" aria-label="Default"
+                                    aria-describedby="inputGroup-sizing-default" id="provincia"
+                                    style="border:solid blue" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Ciudad: (*)</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default" id="ciudad" style="border:solid blue"
+                            onblur="validarStringInside(this,2,100,ciudadError) ">
+                    </div>
+                    <label class="obligatorio" id="ciudadError" for="direccion">
+                        Introducir ciudad entre 2 a 100 caracteres </label>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">CIF/NIF: (*)</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default" id="documento" style="border:solid blue"
+                            onblur="validarDocumentoIndise(this,documentoError)">
+                    </div>
+                    <label class="obligatorio" id="documentoError" for="documento">
+                        Introducir un CIF/NIF correcto </label>
+                </div>
+                <div class="col-sm-8">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Telefono de contacto:
+                                (*)</span>
+                        </div>
+                        <input type="number" class="form-control" aria-label="Default" placeholder="empieze por 6 7 o 9"
+                            aria-describedby="inputGroup-sizing-default" id="telefono" style="border:solid blue"
+                            onblur="validarTelefonoInside(this,1,9,telefonoError)">
+                    </div>
+                    <label class="obligatorio" id="telefonoError" for="telefono">
+                        Introducir un Telefono correcto de 9 digitos </label>
+                </div>
+                <div class="col-sm-8">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Email: (*)</span>
+                        </div>
+                        <input type="email" class="form-control" aria-label="Default" placeholder="ejemplo@ejemplo.com"
+                            aria-describedby="inputGroup-sizing-default" id="email" style="border:solid blue"
+                            onblur="validarEmailInside(this,emailError)">
+                    </div>
+                    <label class="obligatorio" id="emailError" for="email">
+                        Introducir un Email correcto </label>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="captchaSpan">Captcha(*): <span id="num1"></span>
+                                <span>+</span> <span id="num2"></span> </span>
+                            <script type="text/javascript">
+                                crearCaptcha();
+                            </script>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default" id="captcha" style="border:solid blue"
+                            onchange="validarCaptchaIndise(this,captchaError)">
+                    </div>
+                    <label class="obligatorio" id="captchaError" for="captcha">
+                        Error en la suma </label>
+                </div>
+            </form>
+        </div>
+        <button id="crearFila" type="button" class="btn btn-primary" onclick="crearFila()">Añadir fila</button>
+        <div class="col-sm-12">
+            <TABLE BORDER id="tabla">
+                <TR>
+                    <TH>Cantidad</TH>
+                    <TH>Descripcion</TH>
+                    <TH>Precio</TH>
+                    <TH>IVA%</TH>
+                    <TH>IVA</TH>
+                    <TH>Importe</TH>
+                    <TH>Total</TH>
+                    <TH>Borrar</TH>
+                </TR>
+            </TABLE>
+        </div>
+        <button id="factura" type="button" class="btn btn-primary">Generar factura</button>
+        <div class="col-sm-8">
+            <div class="form-row">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Base iva 21%</span>
+                        </div>
+                        <input type="number" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default" id="baseIva21" disabled>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Iva</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default" id="Iva21" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="form-row">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Base iva 10%</span>
+                        </div>
+                        <input type="number" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default" id="baseIva10" disabled>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Iva</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default" id="Iva10" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="form-row">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Base iva 4%</span>
+                        </div>
+                        <input type="number" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default" id="baseIva4" disabled>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Iva</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default" id="Iva4" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-row">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Total</span>
+                        </div>
+                        <input type="number" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default" id="totales" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="enviar" type="button" class="btn btn-primary">Enviar</button>
+
+        
+        <! -- ultimo /div -->
+    </div>
+</body>
+
+</html>
